@@ -32,7 +32,8 @@ import com.hm.achievement.lifecycle.Cleanable;
 import com.hm.achievement.utils.SoundPlayer;
 
 /**
- * Class in charge of handling the /aach book command, which creates and gives a book containing the player's
+ * Class in charge of handling the /aach book command, which creates and gives a
+ * book containing the player's
  * achievements.
  *
  * @author Pyves
@@ -49,7 +50,8 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 	private static final String FIELD_PAGES = "pages";
 	private static final String METHOD_FROM_STRING = "fromString";
 
-	// Corresponds to times at which players have received their books. Cooldown structure.
+	// Corresponds to times at which players have received their books. Cooldown
+	// structure.
 	private final HashMap<UUID, Long> playersBookTime = new HashMap<>();
 	private final Logger logger;
 	private final int serverVersion;
@@ -125,7 +127,7 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 			}
 			// Play special particle effect when receiving the book.
 			if (configAdditionalEffects) {
-				player.spawnParticle(Particle.ENCHANTMENT_TABLE, player.getLocation(), 1000, 0, 2, 0, 1);
+				player.spawnParticle(Particle.ENCHANT, player.getLocation(), 1000, 0, 2, 0, 1);
 			}
 
 			// Play special sound when receiving the book.
@@ -160,12 +162,14 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 			}
 		}
 
-		// Set the pages and other elements of the book (author, title and date of reception).
+		// Set the pages and other elements of the book (author, title and date of
+		// reception).
 		setBookPages(bookPages, bookMeta);
 		bookMeta.setAuthor(player.getName());
 		bookMeta.setTitle(langBookName);
 		bookMeta.setLore(
-				Arrays.asList(StringUtils.replaceOnce(langBookDate, "DATE", dateFormat.format(System.currentTimeMillis()))));
+				Arrays.asList(
+						StringUtils.replaceOnce(langBookDate, "DATE", dateFormat.format(System.currentTimeMillis()))));
 		book.setItemMeta(bookMeta);
 
 		// Check whether player has room in his inventory, else drop book on the ground.
@@ -178,7 +182,8 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 	}
 
 	/**
-	 * Checks if player hasn't done a command too recently (with "too recently" being defined in configuration file).
+	 * Checks if player hasn't done a command too recently (with "too recently"
+	 * being defined in configuration file).
 	 *
 	 * @param player
 	 * @return whether a player is authorised to perform the list command
@@ -198,9 +203,12 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 	}
 
 	/**
-	 * Adds pages to the BookMeta. A Spigot commit in the late days of Minecraft 1.11.2 started enforcing extremely low
-	 * limits (why? If it's not broken, don't fix it.), with books limited in page size and total number of pages, as
-	 * well as title length. This function bypasses such limits and restores the original CraftBukkit behaviour. See
+	 * Adds pages to the BookMeta. A Spigot commit in the late days of Minecraft
+	 * 1.11.2 started enforcing extremely low
+	 * limits (why? If it's not broken, don't fix it.), with books limited in page
+	 * size and total number of pages, as
+	 * well as title length. This function bypasses such limits and restores the
+	 * original CraftBukkit behaviour. See
 	 * https://hub.spigotmc.org/stash/projects/SPIGOT/repos/craftbukkit/commits/4acd0f49e07e0912096e79494472535baf0db2ab
 	 * for more information.
 	 *
@@ -211,7 +219,8 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 	private void setBookPages(List<String> bookPages, BookMeta bookMeta) {
 		if (serverVersion <= 15) {
 			try {
-				// Code we're trying to execute: this.pages.add(CraftChatMessage.fromString(page, true)[0]); in
+				// Code we're trying to execute:
+				// this.pages.add(CraftChatMessage.fromString(page, true)[0]); in
 				// CraftMetaBook.java.
 				String versionIdentifier = Bukkit.getServer().getClass().getPackage().getName().substring(23);
 				Class<?> craftMetaBookClass = Class.forName("org.bukkit.craftbukkit." + versionIdentifier + "."
@@ -225,7 +234,8 @@ public class BookCommand extends AbstractCommand implements Cleanable {
 					pages.add(((Object[]) fromStringMethod.invoke(null, bookPage, true))[0]);
 				}
 			} catch (Exception e) {
-				logger.warning("Error while creating book pages. Your achievements book may be trimmed down to 50 pages.");
+				logger.warning(
+						"Error while creating book pages. Your achievements book may be trimmed down to 50 pages.");
 				bookMeta.setPages(bookPages);
 			}
 		} else {

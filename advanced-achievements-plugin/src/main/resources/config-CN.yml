@@ -74,6 +74,9 @@ ActionBarNotify: true
 # 使用title显示成就的显示名称和信息。本项生效最低Minecraft版本：1.8
 TitleScreen: true
 
+# 在获得一个成就后的几秒内使用boss bar显示成就进度
+BossBarProgress: true
+
 # 当玩家获得一项成就时在聊天框显示成就信息
 ReceiverChatMessages: true
 
@@ -105,10 +108,11 @@ ExcludedWorlds: []
 # 在计算移动距离时，忽略垂直方向 (Y 轴) 的数据计算。
 IgnoreVerticalDistance: false
 
-# 在GUI或其他统计输出中不展示成就种类
-# 同时也阻止玩家获得该类成就/该类成就统计数据增加
+# 在GUI或其他统计输出中不展示的成就种类，同时也阻止统计数据的增加
+# 添加进此项后，对应的成就设置部分无需删除
+# 若想启用所有的成就类别，删除此类的所有条目并设置为 DisabledCategories: []
 DisabledCategories:
-- AdvancementsCompleted
+  - AdvancementsCompleted
 
 # 不将使用精准采集工具破坏的物品计入Breaks相关成就
 DisableSilkTouchBreaks: false
@@ -117,8 +121,19 @@ DisableSilkTouchBreaks: false
 # DisableSilkTouchBreaks 为true将忽略本项。 不适用于破坏铁矿或金矿
 DisableSilkTouchOreBreaks: false
 
-# 使用的预言文件名称。可用值：lang.yml, lang-BP.yml, lang-CN.yml, lang-CZ.yml, lang-DE.yml, lang-ES.yml, lang-FI.yml
-# lang-FR.yml, lang-HU.yml, lang-IT.yml, lang-PL.yml, lang-RO.yml, lang-RU.yml, lang-SE.yml, lang-TR.yml, lang-TW.yml, lang-VN.yml
+# 用于Beaks类成就。当新版本Minecraft发布时，你可能需要扩充这个条目
+OreBlocks:
+  - coal_ore
+  - diamond_ore
+  - emerald_ore
+  - lapis_ore
+  - nether_gold_ore
+  - nether_quartz_ore
+  - redstone_ore
+
+# 使用的预言文件名称。可用值：lang.yml, lang-BP.yml, lang-CN.yml, lang-CZ.yml, lang-DA.yml, lang-DE.yml,
+# lang-ES.yml, lang-FI.yml, lang-FR.yml, lang-HU.yml, lang-IT.yml, lang-PL.yml, lang-RO.yml, lang-RU.yml, lang-SE.yml,
+# lang-SK.yml, lang-TR.yml, lang-TW.yml, lang-VN.yml
 LanguageFileName: lang-CN.yml
 
 # 每一次计入成就统计之间间隔（冷却时间）。现仅支持限制列出项
@@ -129,6 +144,7 @@ StatisticCooldown:
   Beds: 30             #床
   Brewing: 5           #酿造
   MusicDiscs: 30       #唱片
+  BooksEdited: 10      #编辑书本
 
 # 当玩家在冷却时间内进行相应行为，显示一个action bar，本项生效最低Minecraft版本：1.8
 CooldownActionBar: true
@@ -138,7 +154,6 @@ CooldownActionBar: true
 DateLocale: zh
 
 # 在 /aach book 和 /aach list 中显示成就的获取时间
-# 仅适用于显示插件版本3.0以上时获得的成就，不会显示具体的时间，只会显示为如 “midnight”这种
 DateDisplayTime: true
 
 # 当玩家获得所有成就时给予玩家的奖励，与成就奖励设置格式相同
@@ -155,7 +170,6 @@ IgnoreAFKPlayedTime: false
 RegisterAdvancementDescriptions: true
 
 # 若为true，隐藏成就GUI中的成就。获得成就时仍然会显示获取成就的信息
-# 使用Minecraft 1.12以前的版本中，本项设置无效
 HideAdvancements: false
 
 # 根成就标题
@@ -163,6 +177,144 @@ RootAdvancementTitle: Advanced Achievements
 
 # 成就页背景，必须是材质包中的任意一个图片的路径
 AdvancementsBackground: "minecraft:textures/item/book.png"
+
+# Used for the Fireworks achievement category. In vanilla Minecraft, fireworks cannot be launched on the following
+# blocks. Unless listed here, players may be able to abuse the Fireworks category by repeatedly right clicking on the
+# block and not actually using any fireworks. You may need to expand this list when new Minecraft versions are released.
+ForbiddenFireworkBlocks:
+  - glow_item_frame
+  - painting
+  - item_frame
+  - minecart
+  - hopper_minecart
+  - tnt_minecart
+  - command_block_minecart
+  - furnace_minecart
+  - chest_minecart
+
+# Used for the Fireworks achievement category. In vanilla Minecraft, fireworks can only be launched on the following
+# blocks when sneaking. Unless listed here, players may be able to abuse the Fireworks category by repeatedly right 
+# clicking on the block and not actually using any fireworks. You may need to expand this list when new Minecraft 
+# versions are released.
+ForbiddenFireworkBlocksWhenNotSneaking:
+  - polished_blackstone_button
+  - furnace
+  - dispenser
+  - chest
+  - note_block
+  - lever
+  - stone_button
+  - ender_chest
+  - beacon
+  - anvil
+  - trapped_chest
+  - hopper
+  - dropper
+  - brewing_stand
+  - crafting_table
+  - acacia_button
+  - birch_button
+  - dark_oak_button
+  - jungle_button
+  - oak_button
+  - spruce_button
+  - acacia_door
+  - birch_door
+  - dark_oak_door
+  - jungle_door
+  - oak_door
+  - spruce_door
+  - acacia_fence_gate
+  - birch_fence_gate
+  - dark_oak_fence_gate
+  - jungle_fence_gate
+  - oak_fence_gate
+  - spruce_fence_gate
+  - enchanting_table
+  - acacia_trapdoor
+  - birch_trapdoor
+  - dark_oak_trapdoor
+  - jungle_trapdoor
+  - oak_trapdoor
+  - spruce_trapdoor
+  - acacia_boat
+  - birch_boat
+  - dark_oak_boat
+  - jungle_boat
+  - oak_boat
+  - spruce_boat
+  - black_bed
+  - blue_bed
+  - brown_bed
+  - cyan_bed
+  - gray_bed
+  - green_bed
+  - light_blue_bed
+  - light_gray_bed
+  - lime_bed
+  - magenta_bed
+  - orange_bed
+  - pink_bed
+  - purple_bed
+  - red_bed
+  - white_bed
+  - yellow_bed
+  - cake
+  - comparator
+  - repeater
+  - command_block
+  - armor_stand
+  - chain_command_block
+  - repeating_command_block
+  - black_shulker_box
+  - blue_shulker_box
+  - brown_shulker_box
+  - cyan_shulker_box
+  - gray_shulker_box
+  - green_shulker_box
+  - light_blue_shulker_box
+  - lime_shulker_box
+  - magenta_shulker_box
+  - orange_shulker_box
+  - pink_shulker_box
+  - purple_shulker_box
+  - red_shulker_box
+  - white_shulker_box
+  - yellow_shulker_box
+  - shulker_box
+  - barrel
+  - bell
+  - blast_furnace
+  - cartography_table
+  - grindstone
+  - loom
+  - smoker
+  - stonecutter
+  - acacia_sign
+  - acacia_wall_sign
+  - birch_sign
+  - birch_wall_sign
+  - dark_oak_sign
+  - dark_oak_wall_sign
+  - jungle_sign
+  - jungle_wall_sign
+  - oak_sign
+  - oak_wall_sign
+  - spruce_sign
+  - spruce_wall_sign
+
+# Used for the HoePlowings achievement category. You may need to expand this list when new Minecraft versions are
+# released.
+HoePlowableBlocks:
+  - dirt
+  - grass_block
+
+# Used for the Fish achievement category. You may need to expand this list when new Minecraft versions are released.
+FishableFish:
+  - cod
+  - salmon
+  - pufferfish
+  - tropical_fish
 
 #======================================================================================================================#
 #                                                     GUI SETTINGS                                                     #
@@ -268,7 +420,6 @@ BungeeMode: false
 
 # 计算一个特定的方块被放置次数
 # - 方块名 （可用材料名称：github.com/PyvesB/advanced-achievements/wiki/Material-names）
-# - 你可以在1.13之前的Minecraft版本使用如sand:1这样的编辑来给予带有metadata值1的沙子（红沙）
 # - 含有自定义名称的物品(例如玩家头颅的名字)
 Places:
   chest:
@@ -317,7 +468,6 @@ Places:
 
 # 计算一种特定方块被破坏次数
 # - 方块名称（可用材料名称：github.com/PyvesB/advanced-achievements/wiki/Material-names）
-# - 你可以在1.13之前的Minecraft版本使用如sand:1这样的编辑来给予带有metadata值1的沙子（红沙）
 Breaks:
   ice:
     10:
@@ -456,6 +606,17 @@ JobsReborn:
       Message: 你成为了二级hunter
       Name: jobsreborn_1_hunter
       DisplayName: Hunter
+      Type: normal
+
+# Count effects held (effect name in lower case).
+# Available effects: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+EffectsHeld:
+  jump:
+    1:
+      Goal: Hold the jump boost effect!
+      Message: You jumped as high as a kangaroo!
+      Name: effectsheld_1_jump
+      DisplayName: Kangaroo
       Type: normal
 
 #======================================================================================================================#
@@ -875,6 +1036,15 @@ AdvancementsCompleted:
       Item: 
         - diamond 8
         - cake 1
+
+# Count books edited.
+BooksEdited:
+  10:
+    Goal: Edit 10 books.
+    Message: You've used an entire pot of ink!
+    Name: booksedited_10
+    DisplayName: Scribe
+    Type: normal
 
 #======================================================================================================================#
 #                                                      指令给予成就                                                     #

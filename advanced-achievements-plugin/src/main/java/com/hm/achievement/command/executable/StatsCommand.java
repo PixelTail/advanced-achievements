@@ -17,7 +17,8 @@ import com.hm.achievement.db.CacheManager;
 import com.hm.achievement.utils.SoundPlayer;
 
 /**
- * Class in charge of handling the /aach stats command, which creates and displays a progress bar of the player's
+ * Class in charge of handling the /aach stats command, which creates and
+ * displays a progress bar of the player's
  * achievements
  *
  * @author Pyves
@@ -43,7 +44,8 @@ public class StatsCommand extends AbstractCommand {
 
 	@Inject
 	public StatsCommand(@Named("main") YamlConfiguration mainConfig, @Named("lang") YamlConfiguration langConfig,
-			StringBuilder pluginHeader, CacheManager cacheManager, AchievementMap achievementMap, SoundPlayer soundPlayer) {
+			StringBuilder pluginHeader, CacheManager cacheManager, AchievementMap achievementMap,
+			SoundPlayer soundPlayer) {
 		super(mainConfig, langConfig, pluginHeader);
 		this.cacheManager = cacheManager;
 		this.achievementMap = achievementMap;
@@ -76,7 +78,8 @@ public class StatsCommand extends AbstractCommand {
 		int totalAchievements = achievementMap.getAll().size();
 
 		player.sendMessage(
-				langNumberAchievements + String.format("%.1f", 100 * (double) playerAchievements / totalAchievements) + "%");
+				langNumberAchievements + String.format("%.1f", 100 * (double) playerAchievements / totalAchievements)
+						+ "%");
 
 		String middleText = " " + playerAchievements + "/" + totalAchievements + " ";
 		int verticalBarsToDisplay = 150 - configIcon.length() - FONT.getWidth(middleText);
@@ -89,7 +92,8 @@ public class StatsCommand extends AbstractCommand {
 				barDisplay.append(ChatColor.GRAY).append(middleText);
 				// Do not display middleText again.
 				hasDisplayedMiddleText = true;
-				// Iterate a number of times equal to the number of iterations so far to have the same number of
+				// Iterate a number of times equal to the number of iterations so far to have
+				// the same number of
 				// vertical bars left and right from the middle text.
 				i = verticalBarsToDisplay - i;
 			} else if (i < ((verticalBarsToDisplay - 1) * playerAchievements) / totalAchievements) {
@@ -108,7 +112,7 @@ public class StatsCommand extends AbstractCommand {
 		// Player has received all achievement; play special effect and sound.
 		if (playerAchievements >= totalAchievements) {
 			if (configAdditionalEffects) {
-				player.spawnParticle(Particle.SPELL_WITCH, player.getLocation(), 400, 0, 1, 0, 0.5f);
+				player.spawnParticle(Particle.WITCH, player.getLocation(), 400, 0, 1, 0, 0.5f);
 			}
 
 			if (configSound) {

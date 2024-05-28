@@ -56,7 +56,8 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 
 /**
- * Listener class to deal with achievement receptions: rewards, display and database operations.
+ * Listener class to deal with achievement receptions: rewards, display and
+ * database operations.
  *
  * @author Pyves
  */
@@ -171,7 +172,8 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 	public void onPlayerAdvancedAchievementReception(PlayerAdvancedAchievementEvent event) {
 		Achievement achievement = event.getAchievement();
 		Player player = event.getPlayer();
-		// Achievement could have already been received if MultiCommand is set to true in the configuration.
+		// Achievement could have already been received if MultiCommand is set to true
+		// in the configuration.
 		if (!cacheManager.hasPlayerAchievement(player.getUniqueId(), achievement.getName())) {
 			cacheManager.registerNewlyReceivedAchievement(player.getUniqueId(), achievement.getName());
 
@@ -193,7 +195,8 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 	}
 
 	/**
-	 * Displays chat messages, screen title and launches a firework when a player receives an achievement.
+	 * Displays chat messages, screen title and launches a firework when a player
+	 * receives an achievement.
 	 *
 	 * @param player
 	 * @param achievement
@@ -210,7 +213,8 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 
 		// Notify other online players that the player has received an achievement.
 		for (Player p : advancedAchievements.getServer().getOnlinePlayers()) {
-			// Notify other players only if NotifyOtherPlayers is enabled and player has not used /aach toggle, or if
+			// Notify other players only if NotifyOtherPlayers is enabled and player has not
+			// used /aach toggle, or if
 			// NotifyOtherPlayers is disabled and player has used /aach toggle.
 			if (!p.getName().equals(player.getName())
 					&& (configNotifyOtherPlayers ^ toggleCommand.isPlayerToggled(p, achievement.getType()))) {
@@ -236,12 +240,14 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 			BossBar bossBar = Bukkit.getServer().createBossBar(message, barColor, BarStyle.SOLID);
 			bossBar.setProgress(progress);
 			Bukkit.getScheduler().scheduleSyncDelayedTask(advancedAchievements, () -> bossBar.addPlayer(player), 110);
-			Bukkit.getScheduler().scheduleSyncDelayedTask(advancedAchievements, () -> bossBar.removePlayer(player), 240);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(advancedAchievements, () -> bossBar.removePlayer(player),
+					240);
 		}
 	}
 
 	/**
-	 * Displays texts related to the achievement in the receiver's chat. This method can display a single hoverable
+	 * Displays texts related to the achievement in the receiver's chat. This method
+	 * can display a single hoverable
 	 * message or several messages one after the other.
 	 *
 	 * @param player
@@ -284,7 +290,7 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 				: StringUtils.replaceOnce(langAchievementReceived, "PLAYER", receiver.getName()) + nameToShowUser;
 		if (configActionBarNotify) {
 			otherPlayer.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(
-					net.md_5.bungee.api.ChatColor.ITALIC + message));
+					ChatColor.ITALIC + message));
 		} else {
 			otherPlayer.sendMessage(pluginHeader + message);
 		}
@@ -326,18 +332,20 @@ public class PlayerAdvancedAchievementListener implements Listener, Reloadable {
 	}
 
 	/**
-	 * Displays a simplified particle effect and calm sound when receiving an achievement. Is used instead of
+	 * Displays a simplified particle effect and calm sound when receiving an
+	 * achievement. Is used instead of
 	 * displayFirework.
 	 *
 	 * @param player
 	 */
 	private void displaySimplifiedReception(Player player) {
 		player.playSound(player.getLocation(), Sound.valueOf("ENTITY_PLAYER_LEVELUP"), 1, 0.7f);
-		player.spawnParticle(Particle.FIREWORKS_SPARK, player.getLocation(), 500, 0, 3, 0, 0.1f);
+		player.spawnParticle(Particle.FIREWORK, player.getLocation(), 500, 0, 3, 0, 0.1f);
 	}
 
 	/**
-	 * Handles rewards and displaying messages when a player has received all achievements.
+	 * Handles rewards and displaying messages when a player has received all
+	 * achievements.
 	 * 
 	 * @param player
 	 */

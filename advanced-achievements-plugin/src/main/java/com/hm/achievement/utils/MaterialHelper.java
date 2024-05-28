@@ -12,7 +12,8 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionType;
 
 /**
- * Class providing a few logging helper methods to retrieve Material instances via their names.
+ * Class providing a few logging helper methods to retrieve Material instances
+ * via their names.
  * 
  * @author Pyves
  */
@@ -29,7 +30,7 @@ public class MaterialHelper {
 	/**
 	 * Tries to match a name to a Material instance.
 	 * 
-	 * @param name the string to match
+	 * @param name          the string to match
 	 * @param usageLocation used for logging
 	 * @return a Material wrapped inside an Optional or an empty Optional.
 	 */
@@ -38,11 +39,12 @@ public class MaterialHelper {
 	}
 
 	/**
-	 * Tries to match a name to a Material instance and returns a default value if not found.
+	 * Tries to match a name to a Material instance and returns a default value if
+	 * not found.
 	 * 
-	 * @param name the string to match
+	 * @param name            the string to match
 	 * @param defaultMaterial returned if name could not be matched
-	 * @param usageLocation used for logging
+	 * @param usageLocation   used for logging
 	 * @return a Material or null.
 	 */
 	public Material matchMaterial(String name, Material defaultMaterial, String usageLocation) {
@@ -72,7 +74,14 @@ public class MaterialHelper {
 		if (itemStack.getType() != Material.POTION) {
 			return false;
 		}
-		return ((PotionMeta) itemStack.getItemMeta()).getBasePotionData().getType() != PotionType.WATER;
+
+		PotionMeta potionMeta = (PotionMeta) itemStack.getItemMeta();
+		if (potionMeta != null) {
+			PotionType basePotionType = potionMeta.getBasePotionType();
+			return basePotionType != PotionType.WATER;
+		} else {
+			return false;
+		}
 	}
 
 }
