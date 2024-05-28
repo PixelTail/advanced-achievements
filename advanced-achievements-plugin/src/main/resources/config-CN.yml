@@ -613,10 +613,10 @@ JobsReborn:
 EffectsHeld:
   jump:
     1:
-      Goal: Hold the jump boost effect!
-      Message: You jumped as high as a kangaroo!
+      Goal: 获取跳跃提升效果
+      Message: 你能跳的和袋鼠一样高！
       Name: effectsheld_1_jump
-      DisplayName: Kangaroo
+      DisplayName: 袋鼠
       Type: normal
 
 #======================================================================================================================#
@@ -1037,13 +1037,13 @@ AdvancementsCompleted:
         - diamond 8
         - cake 1
 
-# Count books edited.
+# 编辑的书本数
 BooksEdited:
   10:
-    Goal: Edit 10 books.
-    Message: You've used an entire pot of ink!
+    Goal: 编辑10本书
+    Message: 你使用了一整瓶墨水！
     Name: booksedited_10
-    DisplayName: Scribe
+    DisplayName: 大作家
     Type: normal
 
 #======================================================================================================================#
